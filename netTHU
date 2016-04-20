@@ -1,0 +1,81 @@
+#!/bin/bash
+#author: guzhaoyuan
+
+if [ $# -eq 0 ]
+then
+        echo "Missing options!"
+        echo "(run $0 -h for help)"
+        echo ""
+        exit 0
+fi
+
+while getopts "odhrl" OPTION; do
+        case $OPTION in
+                o)
+			if [ -a netTHUservice ]; then
+				username=`awk 'NR==1 {print $2}' netTHUservice`
+				passmd5=`awk 'NR==2 {print $2}' netTHUservice`
+                                echo ""
+                                result=$(curl -L net.tsinghua.edu.cn/do_login.php --data "action=login&username="$username"&password={MD5_HEX}"$passmd5"&ac_id=1")
+                                res=`echo $result |awk '{print $3}'`
+                                echo $result
+                                if [ $res != "successful." ]; then
+                                        echo "wrong account info record"
+                                        echo "please use -r to remove account"
+                                fi
+			else
+				echo "first use please input username"
+		              	read username
+				echo "username "$username > netTHUservice
+				echo "input password"
+				read password
+				passmd5=$(echo -n $password | md5)
+				echo "password "$passmd5 >> netTHUservice
+                        	result=$(curl -L net.tsinghua.edu.cn/do_login.php --data "action=login&username="$username"&password={MD5_HEX}"$passmd5"&ac_id=1")
+                        	res=`echo $result |awk '{print $3}'`
+                        	echo $result
+                        	if [ $res = "successful." ]; then
+                        		echo "password remembered"
+                        	fi	
+			fi
+				
+                        echo ""
+                        exit 0
+                        ;;
+
+                d)
+			curl -L net.tsinghua.edu.cn/do_login.php --data "action=logout"
+			echo ""
+			exit 0
+			;;
+
+                h)
+                        echo "Usage:"
+                        echo "args.sh -h "
+                        echo ""
+                        echo "	-o     to login Tsinghua net"
+                        echo "	-d     to logout Tsinghua net"
+                        echo "	-l     to list net usage"
+                        echo "	-r     to remove account info"
+                        echo "	-h     help (this output)"
+                        exit 0
+                        ;;
+
+                r)
+			rm netTHUservice
+			exit 0
+                        ;;
+
+                l)
+                        
+                        exit 0
+                        ;;
+
+                *)
+			echo "illegal option"
+			exit 0
+			;;
+
+        esac
+done
+
