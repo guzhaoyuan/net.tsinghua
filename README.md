@@ -1,6 +1,6 @@
 #net.tsinghua CLI
 
-##setup
+##Setup
 
 	cd ~
 	echo "PATH=/usr/local/bin:$PATH" >> .bashrc #or .zshrc
