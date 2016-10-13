@@ -11,8 +11,11 @@ First time use will require your username and password. Then it save the informa
 	
 	git clone https://github.com/guzhaoyuan/net.tsinghua.git
 	cd net.tsinghua
-	ln netTHU /usr/local/bin
-
+	#for linux
+	ln linux/netTHU /usr/local/bin
+	#for OSX
+	ln OSX/netTHU /usr/local/bin
+	
 ##Usage
 	
 	netTHU -o #log in
