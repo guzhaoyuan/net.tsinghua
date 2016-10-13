@@ -29,7 +29,7 @@ while getopts "odhrl" OPTION; do
 				echo "username "$username > netTHUservice
 				echo "input password"
 				read password
-				passmd5=$(echo -n $password | md5)
+				passmd5=`echo -n $password|md5sum|cut -d' ' -f1`
 				echo "password "$passmd5 >> netTHUservice
                         	result=$(curl -L net.tsinghua.edu.cn/do_login.php --data "action=login&username="$username"&password={MD5_HEX}"$passmd5"&ac_id=1")
                         	res=`echo $result |awk '{print $3}'`
