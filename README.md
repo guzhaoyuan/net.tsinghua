@@ -22,3 +22,8 @@ First time use will require your username and password. Then it save the informa
 	netTHU -d #log out
 	netTHU -h #help
 	netTHU -r #remove account info
+	
+##TODO
+- [ ] fix small bugs, recognize error type
+- [ ] store password at other position
+- [ ] added function: check current data usage
