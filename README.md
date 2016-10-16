@@ -2,7 +2,7 @@
 ##What's this
 This is a Command Line program writen in bash using Curl. You can use it to log in & out net.tsinghua.edu.cn
 
-First time use will require your username and password. Then it save the information locally and next time you are able to use short command to control your logging status.
+First time you use it, it will require your username and password. Then it saves the information locally and next time you are able to use short commands to control your status(login or logout).
 
 ##Setup
 
