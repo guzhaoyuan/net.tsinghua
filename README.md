@@ -24,6 +24,6 @@ First time use will require your username and password. Then it save the informa
 	netTHU -r #remove account info
 	
 ##TODO
-- [ ] fix small bugs, recognize error type
+- [*] fix small bugs, recognize error type
 - [ ] store password at other position
-- [ ] added function: check current data usage
+- [*] added function: check current data usage
