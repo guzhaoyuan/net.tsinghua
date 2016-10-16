@@ -10,72 +10,79 @@ then
 fi
 
 while getopts "odhrl" OPTION; do
-        case $OPTION in
-                o)
+    case $OPTION in
+        o)
 			if [ -a netTHUservice ]; then
 				username=`awk 'NR==1 {print $2}' netTHUservice`
 				passmd5=`awk 'NR==2 {print $2}' netTHUservice`
-                                echo ""
-                                result=$(curl -L net.tsinghua.edu.cn/do_login.php --data "action=login&username="$username"&password={MD5_HEX}"$passmd5"&ac_id=1")
-                                res=`echo $result |awk '{print $3}'`
-                                echo $result
-                                if [ $res != "successful." ]; then
-                                        echo "wrong account info record"
-                                        echo "please use -r to remove account"
-                                fi
+                result=$(curl -sL net.tsinghua.edu.cn/do_login.php --data "action=login&username="$username"&password={MD5_HEX}"$passmd5"&ac_id=1")
+                res=`echo $result |awk '{print $3}'`
+                if [ $res != "successful." ]; then
+					error=`echo $result | awk '{print $1}'`
+					if [ $error = "E2532:" ];then
+						echo "login too frequently, wait for 10 seconds"
+					elif [ $error = "E2553:" ];then
+                        echo "wrong account info record, or "
+                        echo "please use -r to remove account"
+					else
+						echo $result
+					fi
+					else
+                	    echo $result
+                fi
 			else
 				echo "first use please input username"
 		              	read username
 				echo "username "$username > netTHUservice
 				echo "input password"
 				read password
-				passmd5=`echo -n $password|md5sum|cut -d' ' -f1`
+				passmd5=$(echo -n $password | md5sum | cut -d' ' -f1)
 				echo "password "$passmd5 >> netTHUservice
-                        	result=$(curl -L net.tsinghua.edu.cn/do_login.php --data "action=login&username="$username"&password={MD5_HEX}"$passmd5"&ac_id=1")
-                        	res=`echo $result |awk '{print $3}'`
-                        	echo $result
-                        	if [ $res = "successful." ]; then
-                        		echo "password remembered"
-                        	fi	
+            	result=$(curl -L net.tsinghua.edu.cn/do_login.php --data "action=login&username="$username"&password={MD5_HEX}"$passmd5"&ac_id=1")
+            	res=`echo $result |awk '{print $3}'`
+            	echo $result
+            	if [ $res = "successful." ]; then
+            		echo "password remembered"
+            	fi	
 			fi
-				
-                        echo ""
-                        exit 0
-                        ;;
+            exit 0
+            ;;
 
-                d)
+        d)
 			curl -L net.tsinghua.edu.cn/do_login.php --data "action=logout"
 			echo ""
 			exit 0
 			;;
 
-                h)
-                        echo "Usage:"
-                        echo "args.sh -h "
-                        echo ""
-                        echo "	-o     to login Tsinghua net"
-                        echo "	-d     to logout Tsinghua net"
-                        echo "	-l     to list net usage"
-                        echo "	-r     to remove account info"
-                        echo "	-h     help (this output)"
-                        exit 0
-                        ;;
+        h)
+            echo "Usage:"
+            echo "netTHU -h"
+            echo ""
+            echo "	-o     to login Tsinghua net"
+            echo "	-d     to logout Tsinghua net"
+            echo "	-l     to list net.tsinghua data usage"
+            echo "	-r     to remove account info"
+            echo "	-h     help (this output)"
+            exit 0
+            ;;
 
-                r)
+        r)
 			rm netTHUservice
 			exit 0
-                        ;;
+            ;;
 
-                l)
-                        
-                        exit 0
-                        ;;
+        l)
+          	raw_data=`curl -sL net.tsinghua.edu.cn/rad_user_info.php | cut -d',' -f7`
+			echo ""
+			echo "Current Data Usage(G): "$((raw_data*1/10000000))| sed 's/..$/.&/'
+			echo ""
+            exit 0
+            ;;
 
-                *)
+        *)
 			echo "illegal option"
 			exit 0
 			;;
-
-        esac
+    esac
 done
 
