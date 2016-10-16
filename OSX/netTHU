@@ -73,9 +73,13 @@ while getopts "odhrl" OPTION; do
 
         l)
           	raw_data=`curl -sL net.tsinghua.edu.cn/rad_user_info.php | cut -d',' -f7`
-			echo ""
-			echo "Current Data Usage(G): "$((raw_data*1/10000000))| sed 's/..$/.&/'
-			echo ""
+			if [ -n "$raw_data" ];then
+				echo ""
+				echo "Current Data Usage(G): "$((raw_data*1/10000000))| sed 's/..$/.&/'
+				echo ""
+			else
+				echo "Please login first."
+			fi
             exit 0
             ;;
 
