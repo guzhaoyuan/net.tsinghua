@@ -12,9 +12,12 @@ fi
 while getopts "odhrl" OPTION; do
     case $OPTION in
         o)
-			if [ -a netTHUservice ]; then
-				username=`awk 'NR==1 {print $2}' netTHUservice`
-				passmd5=`awk 'NR==2 {print $2}' netTHUservice`
+			if [ ! -d ~/.TsinghuaNet ]; then
+				mkdir ~/.TsinghuaNet
+			fi
+			if [ -a ~/.TsinghuaNet/netTHUservice ]; then
+				username=`awk 'NR==1 {print $2}' ~/.TsinghuaNet/netTHUservice`
+				passmd5=`awk 'NR==2 {print $2}' ~/.TsinghuaNet/netTHUservice`
                 result=$(curl -sL net.tsinghua.edu.cn/do_login.php --data "action=login&username="$username"&password={MD5_HEX}"$passmd5"&ac_id=1")
                 res=`echo $result |awk '{print $3}'`
                 if [ $res != "successful." ]; then
@@ -32,12 +35,12 @@ while getopts "odhrl" OPTION; do
                 fi
 			else
 				echo "first use please input username"
-		              	read username
-				echo "username "$username > netTHUservice
+				read username
+				echo "username "$username > ~/.TsinghuaNet/netTHUservice
 				echo "input password"
 				read password
 				passmd5=$(echo -n $password | md5)
-				echo "password "$passmd5 >> netTHUservice
+				echo "password "$passmd5 >> ~/.TsinghuaNet/netTHUservice
             	result=$(curl -L net.tsinghua.edu.cn/do_login.php --data "action=login&username="$username"&password={MD5_HEX}"$passmd5"&ac_id=1")
             	res=`echo $result |awk '{print $3}'`
             	echo $result
@@ -67,7 +70,7 @@ while getopts "odhrl" OPTION; do
             ;;
 
         r)
-			rm netTHUservice
+			rm ~/.TsinghuaNet/netTHUservice
 			exit 0
             ;;
 

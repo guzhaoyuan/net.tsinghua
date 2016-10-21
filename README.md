@@ -2,11 +2,12 @@
 ##What's this
 This is a Command Line program writen in bash using Curl. You can use it to log in & out net.tsinghua.edu.cn
 
-First time you use it, it will require your username and password. Then it saves the information locally and next time you are able to use short commands to control your status(login or logout).
+First time you use it, it will require your username and password. Then it saves the information in **~/.TsinghuaNet/netTHUservice** and next time you are able to use short commands to control your status(login or logout).
 
 ##Setup
 
 	cd ~
+	#add PATH to your shell
 	echo "PATH=/usr/local/bin:$PATH" >> .bashrc #or .zshrc
 	
 	git clone https://github.com/guzhaoyuan/net.tsinghua.git
@@ -25,5 +26,7 @@ First time you use it, it will require your username and password. Then it saves
 	
 ##TODO
 - [x] fix small bugs, recognize error type
-- [ ] store password at other position
+- [x] store password at other position
 - [x] added function: check current data usage
+- [ ] write a install and uninstall script
+- [ ] encrypt the information in netTHUservice for security
