@@ -24,6 +24,10 @@ First time you use it, it will require your username and password. Then it saves
 	netTHU -h #help
 	netTHU -r #remove account info
 	
+Executing the netTHU bash script do not need root privilege, if it shows "Permission Denied" after executing netTHU, you may need to add make netTHU executable by:
+	
+	chmod +x netTHU
+	
 ##TODO
 - [x] fix small bugs, recognize error type
 - [x] store password at other position
