@@ -9,7 +9,7 @@ then
         exit 0
 fi
 
-while getopts "odhrl" OPTION; do
+while getopts "oadhrl" OPTION; do
     case $OPTION in
         o)
             if [ ! -d ~/.TsinghuaNet ]; then
@@ -51,6 +51,20 @@ while getopts "odhrl" OPTION; do
             exit 0
             ;;
 
+        a)
+            if [ ! -d ~/.TsinghuaNet ]; then
+                mkdir ~/.TsinghuaNet
+            fi
+            echo "please input username"
+            read username
+            echo "username "$username > ~/.TsinghuaNet/netTHUservice
+            echo "input password"
+            read password
+            passmd5=$(echo -n $password | md5sum | cut -d' ' -f1)
+            echo "password "$passmd5 >> ~/.TsinghuaNet/netTHUservice
+            exit 0
+            ;;
+
         d)
             curl -L net.tsinghua.edu.cn/do_login.php --data "action=logout"
             echo ""
@@ -62,6 +76,7 @@ while getopts "odhrl" OPTION; do
             echo "netTHU -h"
             echo ""
             echo "  -o     to login Tsinghua net"
+            echo "  -a     add or cover user without login"
             echo "  -d     to logout Tsinghua net"
             echo "  -l     to list net.tsinghua data usage"
             echo "  -r     to remove account info"
