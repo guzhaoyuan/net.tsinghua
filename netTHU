@@ -1,0 +1,102 @@
+#!/bin/bash
+#author: guzhaoyuan
+
+if [ $# -eq 0 ]; then
+    echo "Missing options!"
+    echo "(run $0 -h for help)"
+    echo ""
+    exit 0
+fi
+
+function login() {
+    local username=$1
+    local passmd5=$2
+    result=$(curl -sL net.tsinghua.edu.cn/do_login.php --data "action=login&username="$username"&password={MD5_HEX}"$passmd5"&ac_id=1")
+    res=`echo $result |awk '{print $3}'`
+    if [ $res != "successful." ]; then
+        error=`echo $result | awk '{print $1}'`
+        if [ $error = "E2532:" ];then
+            echo "login too frequently, wait for 10 seconds"
+        elif [ $error = "E2553:" ];then
+            echo "wrong account info record, or "
+            echo "please use -r to remove account"
+        else
+            echo $result
+        fi
+    else
+        echo $result
+    fi
+}
+
+while getopts "odhrl" OPTION; do
+    case $OPTION in
+        o)
+            if [ ! -d ~/.TsinghuaNet ]; then
+                mkdir ~/.TsinghuaNet
+            fi
+            if [ -a ~/.TsinghuaNet/netTHUservice ]; then
+                username=`awk 'NR==1 {print $2}' ~/.TsinghuaNet/netTHUservice`
+                passmd5=`awk 'NR==2 {print $2}' ~/.TsinghuaNet/netTHUservice`
+                login $username $passmd5
+            else
+                echo "first use please input username and password"
+                echo -e "username:\c"
+                read username
+                echo "username "$username > ~/.TsinghuaNet/netTHUservice
+                echo -e "password:\c"
+                read -s password
+                echo ""
+                if [ $(uname) -eq "Darwin" ]; then
+                    passmd5=$(echo -n $password | md5)
+                else
+                    passmd5=$(echo -n $password | md5sum | cut -d' ' -f1)
+                fi
+                echo "password "$passmd5 >> ~/.TsinghuaNet/netTHUservice
+                echo "password remembered."
+                login $username $passmd5
+            fi
+            exit 0
+            ;;
+
+        d)
+            curl -L net.tsinghua.edu.cn/do_login.php --data "action=logout"
+            echo ""
+            exit 0
+            ;;
+
+        h)
+            echo "Usage:"
+            echo "netTHU -h"
+            echo ""
+            echo "  -o     to login Tsinghua net"
+            echo "  -d     to logout Tsinghua net"
+            echo "  -l     to list net.tsinghua data usage"
+            echo "  -r     to remove account info"
+            echo "  -h     help (this output)"
+            exit 0
+            ;;
+
+        r)
+            rm ~/.TsinghuaNet/netTHUservice
+            exit 0
+            ;;
+
+        l)
+            raw_data=`curl -sL net.tsinghua.edu.cn/rad_user_info.php | cut -d',' -f7`
+            if [ -n "$raw_data" ];then
+                echo ""
+                echo "Current Data Usage(G): "$((raw_data*1/10000000))| sed 's/..$/.&/'
+                echo ""
+            else
+                echo "Please login first."
+            fi
+            exit 0
+            ;;
+
+        *)
+            echo "illegal option"
+            exit 0
+            ;;
+    esac
+done
+

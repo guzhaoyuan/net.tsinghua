@@ -4,34 +4,42 @@ This is a Command Line program writen in bash using Curl. You can use it to log 
 
 First time you use it, it will require your username and password. Then it saves the information in **~/.TsinghuaNet/netTHUservice** and next time you are able to use short commands to control your status(login or logout).
 
-## Setup
+## Install
+In one line:
+``` shell
+	sh -c "$(wget https://raw.githubusercontent.com/SuXY15/net.tsinghua/master/install.sh -q -O -)"
+```
 
-	cd ~
-	#add PATH to your shell
-	echo "PATH=/usr/local/bin:$PATH" >> .bashrc #or .zshrc
-	
-	git clone https://github.com/guzhaoyuan/net.tsinghua.git
-	cd net.tsinghua
-	#for linux
-	ln linux/netTHU /usr/local/bin
-	#for OSX
-	ln OSX/netTHU /usr/local/bin
-	
+Or download and add excutable permission by youself:
+```	shell
+	wget https://raw.githubusercontent.com/SuXY15/net.tsinghua/master/install.sh -O /usr/local/bin/netTHU
+	chmod +x /usr/local/bin/netTHU
+```
+
 ## Usage
-	
+``` shell
 	netTHU -o #log in
 	netTHU -d #log out
 	netTHU -h #help
 	netTHU -r #remove account info
+```
 
-Executing the netTHU bash script do not need root privilege, if it shows "Permission Denied" after executing netTHU, you may need to add make netTHU executable by:
-	
-	chmod +x netTHU
-	
+## uninstall
+In one line:
+``` shell
+	sh -c "$(wget https://raw.githubusercontent.com/SuXY15/net.tsinghua/master/uninstall.sh -q -O -)"
+```
+
+Or remove data and script by yourself:
+``` shell
+	rm -r ~/.TsinghuaNet/netTHUservice
+	rm /usr/local/bin/netTHU
+```
+
 ##TODO
 
 - [x] fix small bugs, recognize error type
 - [x] store password at other position
 - [x] added function: check current data usage
-- [ ] write a install and uninstall script
+- [x] write a install and uninstall script
 - [ ] encrypt the information in netTHUservice for security
