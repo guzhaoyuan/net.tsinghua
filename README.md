@@ -14,7 +14,7 @@ sh -c "$(wget https://raw.githubusercontent.com/guzhaoyuan/net.tsinghua/master/i
 Or download and add excutable permission by youself:
 
 ```	shell
-wget https://raw.githubusercontent.com/guzhaoyuan/net.tsinghua/master/netTHU.sh -O /usr/local/bin/netTHU
+wget https://raw.githubusercontent.com/guzhaoyuan/net.tsinghua/master/netTHU -O /usr/local/bin/netTHU
 chmod +x /usr/local/bin/netTHU
 ```
 
@@ -28,6 +28,7 @@ netTHU -r #remove account info
 ```
 
 ## uninstall
+
 In one line:
 
 ``` shell
