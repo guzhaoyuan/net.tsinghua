@@ -18,7 +18,7 @@ function login() {
         if [ $error = "E2532:" ];then
             echo "login too frequently, wait for 10 seconds"
         elif [ $error = "E2553:" ];then
-            echo "wrong account info record, or "
+            echo "wrong account info record"
             echo "please use -r to remove account"
         else
             echo $result
@@ -46,7 +46,7 @@ while getopts "odhrl" OPTION; do
                 echo -e "password:\c"
                 read -s password
                 echo ""
-                if [ $(uname) -eq "Darwin" ]; then
+                if [ $(uname) == "Darwin" ]; then
                     passmd5=$(echo -n $password | md5)
                 else
                     passmd5=$(echo -n $password | md5sum | cut -d' ' -f1)

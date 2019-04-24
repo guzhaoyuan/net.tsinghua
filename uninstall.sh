@@ -1,15 +1,15 @@
 #!/bin/bash
 
-if [ ! -a /usr/local/bin/netTHU ]; then
+if [ ! -f /usr/local/bin/netTHU ]; then
+    echo "netTHU has not been installed"
+else
     rm /usr/local/bin/netTHU
     echo "netTHU script removed"
-else
-    echo "netTHU has not been installed"
 fi
 
 if [ ! -d ~/.TsinghuaNet ]; then
+    echo "netTHU has not been used before"
+else
     rm -r ~/.TsinghuaNet/netTHUservice
     echo "netTHU data cache removed"
-else
-    echo "netTHU has not been used before"
 fi
