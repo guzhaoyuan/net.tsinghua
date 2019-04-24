@@ -7,33 +7,33 @@ First time you use it, it will require your username and password. Then it saves
 ## Install
 In one line:
 ``` shell
-	sh -c "$(wget https://raw.githubusercontent.com/SuXY15/net.tsinghua/master/install.sh -q -O -)"
+sh -c "$(wget https://raw.githubusercontent.com/SuXY15/net.tsinghua/master/install.sh -q -O -)"
 ```
 
 Or download and add excutable permission by youself:
 ```	shell
-	wget https://raw.githubusercontent.com/SuXY15/net.tsinghua/master/install.sh -O /usr/local/bin/netTHU
-	chmod +x /usr/local/bin/netTHU
+wget https://raw.githubusercontent.com/SuXY15/net.tsinghua/master/install.sh -O /usr/local/bin/netTHU
+chmod +x /usr/local/bin/netTHU
 ```
 
 ## Usage
 ``` shell
-	netTHU -o #log in
-	netTHU -d #log out
-	netTHU -h #help
-	netTHU -r #remove account info
+netTHU -o #log in
+netTHU -d #log out
+netTHU -h #help
+netTHU -r #remove account info
 ```
 
 ## uninstall
 In one line:
 ``` shell
-	sh -c "$(wget https://raw.githubusercontent.com/SuXY15/net.tsinghua/master/uninstall.sh -q -O -)"
+sh -c "$(wget https://raw.githubusercontent.com/SuXY15/net.tsinghua/master/uninstall.sh -q -O -)"
 ```
 
 Or remove data and script by yourself:
 ``` shell
-	rm -r ~/.TsinghuaNet/netTHUservice
-	rm /usr/local/bin/netTHU
+rm -r ~/.TsinghuaNet/netTHUservice
+rm /usr/local/bin/netTHU
 ```
 
 ##TODO
