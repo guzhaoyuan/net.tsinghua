@@ -46,7 +46,7 @@ while getopts "odhrl" OPTION; do
                 echo -e "password:\c"
                 read -s password
                 echo ""
-                if [ $(uname) == "Darwin" ]; then
+                if [ $(uname)=='Darwin' ]; then
                     passmd5=$(echo -n $password | md5)
                 else
                     passmd5=$(echo -n $password | md5sum | cut -d' ' -f1)

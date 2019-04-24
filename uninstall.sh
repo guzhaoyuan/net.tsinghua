@@ -10,6 +10,6 @@ fi
 if [ ! -d ~/.TsinghuaNet ]; then
     echo "netTHU has not been used before"
 else
-    rm -r ~/.TsinghuaNet/netTHUservice
+    rm -r ~/.TsinghuaNet
     echo "netTHU data cache removed"
 fi
