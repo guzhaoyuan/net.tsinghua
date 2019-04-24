@@ -9,7 +9,7 @@ if [ -f /usr/local/bin/netTHU ]; then
     fi
 fi
 
-wget https://raw.githubusercontent.com/SuXY15/net.tsinghua/master/netTHU \
+wget https://raw.githubusercontent.com/guzhaoyuan/net.tsinghua/master/netTHU \
      -q -O /usr/local/bin/netTHU
 chmod +x /usr/local/bin/netTHU
 
