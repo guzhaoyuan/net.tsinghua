@@ -8,13 +8,13 @@ First time you use it, it will require your username and password. Then it saves
 In one line:
 
 ``` shell
-sh -c "$(wget https://raw.githubusercontent.com/guzhaoyuan/net.tsinghua/master/install.sh -q -O -)"
+sh -c "$(wget https://raw.githubusercontent.com/SuXY15/net.tsinghua/master/install.sh -q -O -)"
 ```
 
 Or download and add excutable permission by youself:
 
 ```	shell
-wget https://raw.githubusercontent.com/guzhaoyuan/net.tsinghua/master/netTHU -O /usr/local/bin/netTHU
+wget https://raw.githubusercontent.com/SuXY15/net.tsinghua/master/netTHU -O /usr/local/bin/netTHU
 chmod +x /usr/local/bin/netTHU
 ```
 
@@ -32,7 +32,7 @@ netTHU -r #remove account info
 In one line:
 
 ``` shell
-sh -c "$(wget https://raw.githubusercontent.com/guzhaoyuan/net.tsinghua/master/uninstall.sh -q -O -)"
+sh -c "$(wget https://raw.githubusercontent.com/SuXY15/net.tsinghua/master/uninstall.sh -q -O -)"
 ```
 
 Or remove data and script by yourself:
